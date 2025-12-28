@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment } from "@react-three/drei"
-import ProjectCard3D from "@/components/project-card-3d"
-import ProjectModal from "@/components/project-modal"
-import PortfolioHeader from "@/components/portfolio-header"
-import PortfolioControls from "@/components/portfolio-controls"
-import KeyboardControls from "@/components/keyboard-controls"
-import { fetchProjects } from "@/lib/github-api"
-import type { Project } from "@/lib/types"
+import ProjectCard3D from "../components/project-card-3d"
+import ProjectModal from "../components/project-modal"
+import PortfolioHeader from "../components/portfolio-header"
+import PortfolioControls from "../components/portfolio-controls"
+import KeyboardControls from "../components/keyboard-controls"
+import { GET } from "../lib/github-api"
+import type { Project } from "../lib/types"
 
 export default function Portfolio() {
     const [projects, setProjects] = useState<Project[]>([])
@@ -21,7 +21,7 @@ export default function Portfolio() {
     useEffect(() => {
         const loadProjects = async () => {
             try {
-                const data = await fetchProjects()
+                const data = await GET()
                 setProjects(data)
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to load projects")
